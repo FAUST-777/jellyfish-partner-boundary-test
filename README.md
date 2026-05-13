@@ -9,6 +9,8 @@
 
 測驗的宗旨在於：**「方便大家跟另一半達成共識，或是方便吵架！」**
 
+👉 **[線上體驗版 (Live Demo)](https://interactivesurvey.vercel.app/)**
+
 ## 🎯 原始需求 (Requirements)
 
 1. **核心玩法**：給 user 勾選或圈選問答項目，最後根據問答項目套用計算方法，給出對應的答案畫面。
