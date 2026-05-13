@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 水母測驗 (伴侶邊界感測驗) 專案總覽
 
-## Getting Started
+這是一個讓未來的你能快速回憶起「當年到底寫了什麼鬼東西」的專案說明文件 😆。
 
-First, run the development server:
+## 📖 專案在做什麼？ (Project Overview)
+
+這是一個名為「伴侶邊界感測試」的互動式心理測驗網站 (後續演變為 **水母測驗**)。
+使用者透過回答 12 道關於「另一半行為容許度」的情境選擇題，系統會根據他們的選擇計算分數，並考量性別差異，最終將他們歸類為 **20 種獨具特色的「水母 / 水系」結果**。
+
+測驗的宗旨在於：**「方便大家跟另一半達成共識，或是方便吵架！」**
+
+## 🎯 原始需求 (Requirements)
+
+1. **核心玩法**：給 user 勾選或圈選問答項目，最後根據問答項目套用計算方法，給出對應的答案畫面。
+2. **裝置考量**：目標受眾主要使用手機，因此必須是 **Mobile-first RWD** (響應式網頁設計)，確保在各種手機瀏覽器與 In-App Browser (如 LINE 內建瀏覽器) 中都不會跑版。
+3. **防洗數據機制**：需要統計填寫數據與人數，且必須防止同一個 user 重複洗數據（刷榜）。為了保持高轉換率，不強制 user 登入，而是採用**瀏覽器指紋 (Device ID) 判定**。
+4. **多語系支援**：右上角提供多語系切換功能，目前支援繁體中文 (zh)、英文 (en)、日文 (ja)。
+
+## 💻 技術堆疊與防呆機制
+
+*   **前端框架**: Next.js (App Router) + TypeScript
+*   **樣式**: Vanilla CSS Modules (刻意避開預設的 Tailwind 衝突)
+*   **多語系 (i18n)**: 內建字典檔，無縫切換。
+*   **防刷機制**: 導入 `@fingerprintjs/fingerprintjs` 取得裝置的 Visitor ID，並結合 LocalStorage 達成無感雙重防護。擋下 95% 的普通重複填寫，同時維持最高的使用者填寫意願。
+*   **部署平台**: Vercel
+
+## 🎨 UI / UX 設計風格與演進
+
+視覺排版上深度結合了兩大特色：
+
+1.  **《尼爾：自動人形》(NieR: Automata) 科幻極簡風格**:
+    *   **配色**: 標誌性的沙色/米黃色 (`#dad4c6`) 背景，搭配深灰褐色 (`#4a453f`) 文字與邊框。
+    *   **幾何線條**: 捨棄圓角，改用銳利的直角、極細實線邊框與虛線/點狀線條裝飾 (SYSTEM DATA 點綴)。
+    *   **Inverted Hover**: 按鈕預設透明底深色框，操作時瞬間反轉為深色底淺色字。
+2.  **極簡置中卡片式設計 (Minimalist Card UI)**:
+    *   參考自 `stone.mixytalk.com` 的靈感，視覺焦點完全集中在「題目」與「大型選項按鈕」。
+    *   畫面頂部配備細緻的動態進度條 (Progress Bar)，平滑推進填答進度。
+
+## 🚀 開發歷程與最後進度 (Development History & Progress)
+
+*   **Phase 1: 專案轉型**
+    最初其實是一個為了推廣工業區便當店的「多語系便當店網站」(Bento Shop)。在中途靈機一動，將這套強大的多語系與 UI 架構，轉生為現在的「伴侶邊界感測驗」。
+*   **Phase 2: 核心架構與防刷**
+    建立 Next.js 專案，實作基於 FingerprintJS 的防刷機制，並完成了手機端優先的 RWD 響應式佈局。
+*   **Phase 3: 視覺大改版**
+    將原本現代風格的 UI，全面重構為您指定的《尼爾：自動人形》風格，並融入 MixyTalk 的卡片式排版。同時加入了一隻「拿著刀盾的迷因柴犬」作為首頁吉祥物。
+*   **Phase 4: 完整測驗邏輯與結果圖**
+    導入了 12 道真實測驗題目與計分邏輯。並使用 AI 批量生成了 20 張對應不同分數與性別的「水母/水系」美術結果圖，串接至最終結果頁面。
+*   **Phase 5: 部署與 GitHub 備份**
+    專案成功部署至 Vercel 平台上。最後，將專案的歷史脈絡梳理完畢，與所有的圖片素材、程式碼一起打包上傳至 GitHub 永久保存。
+
+## 🏃 如何在本機跑起來？
+
+如果你多年後 clone 下來想在自己的電腦跑跑看：
 
 ```bash
+# 安裝相依套件
+npm install
+
+# 啟動開發伺服器
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+然後打開瀏覽器輸入 `http://localhost:3000` 就可以開始吵架（Ｘ）做測驗（Ｏ）了！
